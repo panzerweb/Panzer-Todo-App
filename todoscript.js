@@ -19,10 +19,11 @@ function renderTodo(todo){
     node.setAttribute('data-key', todo.id);
     node.innerHTML = 
     `
+
     <label for="${todo.id}" class="tick js-tick">
     <input id="${todo.id}" type="checkbox"/ class="checkbox js-checkbox">   
     </label>
- 
+
     <span>${todo.text}</span>
     <button class="delete-todo js-delete-todo">
         <svg><use href="#delete-icon">     <span id="date-span">${formattedDate}</span>

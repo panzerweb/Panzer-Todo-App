@@ -9,9 +9,11 @@
 :root{
   --background-color: #000000;
   --text-color: #495057;
+  --textblend-color: #393e42b6;
   --accent-color: #fca311;
   --console-color: #006400;
   --hack-color: #023a02;
+  --mobiletext-color: #999a9b;
 }
 
 body{
@@ -173,6 +175,10 @@ svg {
   .empty-state__description{
     font-size: 1.5rem;
   }
+  #Layer_1{ 
+    width: 248px;
+    height: 248px; 
+  }
 
 
 
@@ -181,4 +187,53 @@ svg {
   font-size: 0.99rem;
   font-weight: 800;
   color: var(--text-color);
+}
+
+@media screen and (min-width: 320px) and (max-width: 500px) {
+  .app-title{
+    font-size: 3.594rem;
+}
+  #Layer_1{
+  width: 150px;
+  height: 150px; 
+  aspect-ratio: 1/1;
+}
+  .empty-state__title, .empty-state__description {
+  text-align: center;
+    
+}
+.todo-item {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  background-color: var(--textblend-color);
+  padding: 0.5rem;
+  border-radius: 10px;
+  box-shadow: rgba(209, 178, 5, 0.4) 0px 2px 4px, rgba(184, 142, 6, 0.3) 0px 7px 13px -3px, rgba(201, 155, 5, 0.2) 0px -3px 0px inset;}
+.todo-item span {
+  font-size: 22px;
+  color: var(--mobiletext-color);
+}
+ul{
+  padding-left: 0 !important;
+}
+.tick {
+  border: 3px solid var(--mobiletext-color);
+}
+.delete-todo svg{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#date-span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.done span, .done #date-span  {
+  text-decoration: line-through;
+  color: rgb(223, 111, 6);
+}
+
 }
