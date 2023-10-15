@@ -71,55 +71,92 @@ function addTodo(text) {
 
 //todo |  Function to toggle the "done" status of a to-do item
 function toggleDone(key) {
+    // Find the index of the task with the specified ID
     const index = todoItems.findIndex((item) => item.id === Number(key));
+
+    // Toggle the 'checked' property of the task
     todoItems[index].checked = !todoItems[index].checked;
+
+    // Update the local storage with the modified todoItems array
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
+
+    // Render the updated task to reflect the change
     renderTodo(todoItems[index]);
 }
 
 //todo |  Function to delete a to-do item
 function deleteTodo(key) {
+    // Find the index of the task with the specified ID (key)
     const index = todoItems.findIndex((item) => item.id === Number(key));
+
+    // Create a new 'todo' object with a 'deleted' property set to true and the task's details
     const todo = { deleted: true, ...todoItems[index] };
 
+    // Filter out the deleted task from the 'todoItems' array
     todoItems = todoItems.filter((item) => item.id !== Number(key));
+
+    // Update the local storage with the modified 'todoItems' array
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
+
+    // Render the deleted task to visually reflect the removal in the user interface
     renderTodo(todo);
 }
+
 
 //todo |  Get the form and set up a submit event listener
 const form = document.querySelector('.js-form');
 form.addEventListener('submit', function(event) {
     event.preventDefault();
+
+    // Select the input field for task entry
     const input = document.querySelector('.js-todo-input');
+
+    // Extract and trim the task description entered by the user
     const text = input.value.trim();
+
+    // Check if the entered task description is not empty
     if (text !== '') {
+        // Add the new task to the to-do list
         addTodo(text);
+
+        // Clear the input field after submission
         input.value = '';
+
+        // Return focus to the input field for the user's convenience
         input.focus();
     }
 });
+
 
 //todo |  Get the list and set up a click event listener for item checkboxes and delete buttons
 const list = document.querySelector('.js-todo-list');
 list.addEventListener('click', function(event) {
     if (event.target.classList.contains('js-tick')) {
+        // If the user clicks the task completion checkbox
         const itemKey = event.target.parentElement.dataset.key;
         toggleDone(itemKey);
     }
     if (event.target.classList.contains('js-delete-todo')) {
+        // If the user clicks the "Delete" button for a task
         const itemKey = event.target.parentElement.dataset.key;
         deleteTodo(itemKey);
     }
 });
 
+
 //todo |  When the page is loaded, check for saved to-do items in local storage and render them
 document.addEventListener('DOMContentLoaded', function() {
+    // This function runs when the DOM is fully loaded
     const storedItems = localStorage.getItem('todoItems');
     if (storedItems) {
+        // If there are stored items in the local storage
         todoItems = JSON.parse(storedItems);
+        // Retrieve the to-do list items from local storage and parse them from JSON format
         todoItems.forEach(function(savedItem) {
+            // Iterate through each stored to-do item
             renderTodo(savedItem);
+            // Render the item on the user interface using the renderTodo function
         });
     }
 });
+
